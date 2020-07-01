@@ -1,3 +1,3 @@
 # Burger Builder web app connected with FireBase database
 
-**See webpage at** [GitHub Pages](https://maciejsiara.github.io/Burger-Builder)
+**See webpage at** [GitHub Pages](https://maciejsiara.github.io/Burger-Builder/)
