@@ -14,7 +14,7 @@ const buildController = props => {
          >
             Less
          </button>
-         <button className={styles.More} onClick={props.added}>
+         <button className={styles.More} onClick={props.added} >
             More
          </button>
       </div>
