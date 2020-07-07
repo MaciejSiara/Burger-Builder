@@ -12,10 +12,6 @@ import * as actions from "../../store/actions/index";
 import axios from "../../axios-orders";
 
 class BurgerBuilder extends Component {
-   // constructor(props){
-   //     super(props);
-   //     this.state = {...}
-   // }
    state = {
       purchasing: false,
    };
@@ -36,7 +32,12 @@ class BurgerBuilder extends Component {
    }
 
    purchaseHandler = () => {
-      this.setState({ purchasing: true });
+      if (this.props.isAuthenticated) {
+         this.setState({ purchasing: true });
+      } else {
+         this.props.onSetAuthRedirectPath("/checkout");
+         this.props.history.push("/auth");
+      }
    };
 
    purchaseCancelHandler = () => {
@@ -68,6 +69,7 @@ class BurgerBuilder extends Component {
                   disabled={disabledInfo}
                   price={this.props.price}
                   purchasable={this.updatePurchaseState(this.props.ings)}
+                  isAuth={this.props.isAuthenticated}
                   purchasing={this.purchaseHandler}
                />
             </>
@@ -101,6 +103,7 @@ const mapStateToProps = state => {
       ings: state.burgerBuilder.ingredients,
       price: state.burgerBuilder.totalPrice,
       error: state.burgerBuilder.error,
+      isAuthenticated: state.auth.idToken !== null,
    };
 };
 
@@ -115,6 +118,8 @@ const mapDispatchToProps = dispatch => {
       onInitPurchased: () => {
          dispatch(actions.purchaseInit());
       },
+      onSetAuthRedirectPath: path =>
+         dispatch(actions.setAuthRedirectPath(path)),
    };
 };
 
